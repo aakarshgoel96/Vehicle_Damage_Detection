@@ -1,19 +1,6 @@
 import argparse
 from ultralytics import YOLO
-from ultralytics.yolo.utils.plotting import plot_results
-import matplotlib.pyplot as plt
-import os
-import yaml
-
-
-def visualize_results(results):
-    fig, ax = plot_results(results)
-    plt.savefig('results.png')
-    plt.close()
-
-def prepare_data_yaml(data_yaml_path):
-    with open(data_yaml_path, 'r') as file:
-        data = yaml.safe_load(file)
+from utils import visualize_results, prepare_data_yaml
 
 def train(data_path, epochs, batch_size, img_size):
     model = YOLO('yolov8n.pt')  # Load a pretrained YOLOv8 model
