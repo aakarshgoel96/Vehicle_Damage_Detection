@@ -28,7 +28,7 @@ This project uses YOLOv8, a state-of-the-art object detection model, to identify
 
 ## Data Structure
 
-The expected data structure is as follows:
+The expected data structure is as follows for yolov8 format
 
 ```
 /path/to/your/data/
@@ -75,10 +75,10 @@ The model is trained to detect the following types of vehicle damage:
 
 ### Training
 
-To train the model:
+To train the model :
 
 ```
-docker run -v /path/to/your/data:/app/data -v /path/to/save/model:/app/runs vehicle-damage-detection python train.py --epochs 100 --batch-size 16 --img-size 640
+docker run --rm -v /path/to/your/data:/app/data -v /path/to/save/model:/app/runs vehicle-damage-detection python train.py --epochs 100 --batch-size 16 --img-size 640
 ```
 
 Adjust the following parameters as needed:
@@ -91,7 +91,12 @@ Adjust the following parameters as needed:
 To evaluate the trained model:
 
 ```
-docker run -v /path/to/your/data:/app/data -v /path/to/your/model:/app/model vehicle-damage-detection python evaluate.py --model /app/model/best.pt
+docker run --rm -v C:/Users/Goel/Desktop/Lensor/vehicle_damage_detection_dataset:/app/data -v C:/Users/Goel/Desktop/Lensor/models:/app/runs vehicle-damage-detection python eval.py  --model /path/to/trained_model/best.pt
+```
+
+Use following configuration to run above commands on gpus
+```
+docker run --rm --gpus '"device=0"' --shm-size=20g
 ```
 
 ## Code Structure

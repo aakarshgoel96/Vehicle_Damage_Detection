@@ -1,0 +1,6 @@
+train: images/train
+val: images/val
+test: images/test
+
+nc: 8
+names: ['minor-dent', 'minor-scratch', 'moderate-broken', 'moderate-dent', 'moderate-scratch', 'severe-broken', 'severe-dent', 'severe-scratch']
