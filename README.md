@@ -29,7 +29,9 @@ This project uses YOLOv8, a state-of-the-art object detection model, to identify
 ## Data Structure
 
 The expected data structure is as follows for yolov8 format
-Place and run cocotoyolov8.py in data_preprocessing directory to your dataset folder to convert from coco to YOLO if its not already. It will generate following directory strucutre.
+Place and run `cocotoyolov8.py` in `data_preprocessing` directory to your dataset folder to convert from coco to YOLO if its not already. It will generate following directory strucutre.
+
+Alternatively, you can directly download the YOLO format dataset in following structure directly from the below link: https://drive.google.com/file/d/1C1aOuPeTjHvstM98Y6BnTgNqiPcNsSyq/view?usp=sharing 
 
 ```
 /path/to/your/data/
@@ -107,3 +109,13 @@ docker run --rm --gpus '"device=0"' --shm-size=20g
 - `train.py`: Script for training the YOLOv8 model
 - `evaluate.py`: Script for evaluating the trained model
 - `utils.py`: Contains utility functions for data preparation and result visualization
+
+## Experiment 1 Using balanced subset of data - Downsampling
+
+`train_balanced.py` can be used to train in case of datset imbalance and absence of gpu for getting similar distribution of each class. This will better generalises all classes and reduce bias towards one class. It chooses at most 100 images for each class out of the whole distribution. Results are not good as the dataset would be limited to genralize.
+
+## Experiment 2 Using augmentations to increase of data of classes with less data - Upsampoling
+
+Can be used for better generalisation but needs gpu to train vast dataset.
+
+

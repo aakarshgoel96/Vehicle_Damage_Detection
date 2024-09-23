@@ -9,10 +9,8 @@ def evaluate(model_path, data_path):
     model = YOLO(model_path)
     
     # Evaluate the model
-    results = model.val(data=data_path)
+    model.val(data=data_path, split="test")
     
-    # Visualize evaluation results
-    visualize_results(results)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Evaluate YOLOv8 for vehicle damage detection')

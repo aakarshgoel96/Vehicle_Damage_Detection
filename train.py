@@ -14,9 +14,6 @@ def train(data_path, epochs, batch_size, img_size):
         save=True
     )
     
-    # Visualize training results
-    visualize_results(results)
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train YOLOv8 for vehicle damage detection')
     parser.add_argument('--data', type=str, default='/app/data/data.yaml', help='Path to data.yaml file')

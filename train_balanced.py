@@ -1,37 +1,40 @@
 import argparse
-import torch
-import torch.nn as nn
 from ultralytics import YOLO
-from utils import visualize_results, prepare_data_yaml
+from utils import visualize_results, prepare_data_yaml_balanced, create_temp_data_yaml, copy_filtered_data_to_temp
+import os
+import shutil
 
-def train(data_path, epochs, batch_size, img_size, use_focal_loss):
-    # Set device to GPU if available, otherwise use CPU
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    
+
+def train(data_path, epochs, batch_size, img_size):
+    # Prepare the data by limiting each class to a maximum of 100 images
+    filtered_train_images, val_images = prepare_data_yaml_balanced(data_path)
+
+    # Copy filtered images and labels to a temporary directory
+    temp_image_dir, temp_label_dir = copy_filtered_data_to_temp(filtered_train_images)
+
+    # Create a temporary data.yaml with the new training directory
+    temp_data_yaml_path = create_temp_data_yaml(temp_image_dir, val_images)
+
     model = YOLO('yolov8n.pt')  # Load a pretrained YOLOv8 model
-    model = model.to(device)  # Move model to the appropriate device
-    
-    # Adjust class weights: more weight to under-represented classes
-    class_weights = torch.tensor([10.0, 1.0, 15.0, 10.0, 5.0, 15.0, 10.0, 5.0], device=device)  # Example weights
 
-    criterion = nn.CrossEntropyLoss(weight=class_weights)  # Use weighted loss if not focal loss
-    
-    # Train the model with the modified loss function and augmentations
+    # Train the model using the temporary data.yaml
     results = model.train(
-        data=data_path,
+        data=temp_data_yaml_path,  # Pass the temporary data.yaml path
         epochs=epochs,
         imgsz=img_size,
         batch=batch_size,
-        save=True,
-        augment=True,  # Enable data augmentations (you can customize this)
-        mosaic=True,   # Advanced augmentation (merges 4 images)
-        cutmix=True,   # Another augmentation technique to blend images
-        loss=criterion  # Pass the custom loss function (either Focal Loss or weighted CrossEntropy)
+        save=True
     )
-    
-    # Visualize training results
-    visualize_results(results)
-    
+
+    # Clean up the temporary data.yaml file after training
+    if os.path.exists(temp_data_yaml_path):
+        os.remove(temp_data_yaml_path)
+
+    # Optionally, clean up the temporary directory after training
+    if os.path.exists(temp_image_dir):
+        shutil.rmtree(os.path.dirname(temp_image_dir))
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train YOLOv8 for vehicle damage detection')
     parser.add_argument('--data', type=str, default='/app/data/data.yaml', help='Path to data.yaml file')
