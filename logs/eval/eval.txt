@@ -1,0 +1,55 @@
+el /app/runs/detect/train2/weights/best.pt
+Ultralytics YOLOv8.0.124 🚀 Python-3.10.9 torch-2.0.0 CPU
+Model summary (fused): 168 layers, 3007208 parameters, 0 gradients
+Downloading https://ultralytics.com/assets/Arial.ttf to /root/.config/Ultralytics/Arial.ttf...
+100%|██████████| 755k/755k [00:00<00:00, 7.33MB/s]
+val: Scanning /app/data/labels/test... 4 images, 0 backgrounds, 0 corrupt:   5%|▌         | 4/76 [00:00<00:02, 33.64it/sval: Scanning /app/data/labels/test... 13 images, 0 backgrounds, 0 corrupt:  17%|█▋        | 13/76 [00:00<00:01, 58.84itval: Scanning /app/data/labels/test... 22 images, 0 backgrounds, 0 corrupt:  29%|██▉       | 22/76 [00:00<00:00, 68.88itval: Scanning /app/data/labels/test... 29 images, 0 backgrounds, 0 corrupt:  38%|███▊      | 29/76 [00:00<00:00, 68.43itval: Scanning /app/data/labels/test... 36 images, 0 backgrounds, 0 corrupt:  47%|████▋     | 36/76 [00:00<00:00, 61.46itval: Scanning /app/data/labels/test... 43 images, 0 backgrounds, 0 corrupt:  57%|█████▋    | 43/76 [00:00<00:00, 58.56itval: Scanning /app/data/labels/test... 50 images, 0 backgrounds, 0 corrupt:  66%|██████▌   | 50/76 [00:00<00:00, 60.86itval: Scanning /app/data/labels/test... 58 images, 1 backgrounds, 0 corrupt:  78%|███████▊  | 59/76 [00:00<00:00, 64.52itval: Scanning /app/data/labels/test... 67 images, 1 backgrounds, 0 corrupt:  89%|████████▉ | 68/76 [00:01<00:00, 64.26itval: Scanning /app/data/labels/test... 75 images, 1 backgrounds, 0 corrupt: 100%|██████████| 76/76 [00:01<00:00, 64.44it/s]
+val: New cache created: /app/data/labels/test.cache
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/5 [00:00<?,                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  20%|██        | 1/5 [00:09<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  40%|████      | 2/5 [00:15<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  60%|██████    | 3/5 [00:21<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  80%|████████  | 4/5 [00:27<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 5/5 [00:30<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 5/5 [00:30<00:00,  6.16s/it]
+                   all         76        159      0.236       0.16     0.0982     0.0425
+            minor-dent         76         11      0.173     0.0909     0.0208    0.00445
+         minor-scratch         76        104      0.147      0.308      0.147     0.0615
+       moderate-broken         76          1          0          0          0          0
+         moderate-dent         76         25      0.263      0.129     0.0839     0.0391
+      moderate-scratch         76         12          0          0     0.0122    0.00687
+         severe-broken         76          4      0.308       0.75      0.522      0.228
+           severe-dent         76          1          0          0          0          0
+        severe-scratch         76          1          1          0          0          0
+Speed: 14.7ms preprocess, 354.4ms inference, 0.0ms loss, 1.8ms postprocess per image
+Results saved to runs/detect/val
+Traceback (most recent call last):
+  File "/app/eval.py", line 23, in <module>
+    evaluate(args.model, args.data)
+  File "/app/eval.py", line 15, in evaluate
+    visualize_results(results)
+  File "/app/utils.py", line 10, in visualize_results
+    fig, ax = plot_results(results)
+  File "/opt/conda/lib/python3.10/site-packages/ultralytics/yolo/utils/__init__.py", line 196, in wrapper
+    result = func(*args, **kwargs)
+  File "/opt/conda/lib/python3.10/site-packages/ultralytics/yolo/utils/plotting.py", line 434, in plot_results
+    save_dir = Path(file).parent if file else Path(dir)
+  File "/opt/conda/lib/python3.10/pathlib.py", line 960, in __new__
+    self = cls._from_parts(args)
+  File "/opt/conda/lib/python3.10/pathlib.py", line 594, in _from_parts
+    drv, root, parts = self._parse_args(args)
+  File "/opt/conda/lib/python3.10/pathlib.py", line 578, in _parse_args
+    a = os.fspath(a)
+TypeError: expected str, bytes or os.PathLike object, not DetMetrics
+
+C:\Users\Goel\Desktop\Lensor\Vehicle_Damage_Detection>docker run --rm -v C:/Users/Goel/Desktop/Lensor/vehicle_damage_detection_dataset:/app/data -v C:/Users/Goel/Desktop/Lensor/models:/app/runs vehicle-damage-detection python eval.py  --model /app/runs/detect/train2/weights/best.pt
+Ultralytics YOLOv8.0.124 🚀 Python-3.10.9 torch-2.0.0 CPU
+Model summary (fused): 168 layers, 3007208 parameters, 0 gradients
+Downloading https://ultralytics.com/assets/Arial.ttf to /root/.config/Ultralytics/Arial.ttf...
+100%|██████████| 755k/755k [00:00<00:00, 8.22MB/s]
+val: Scanning /app/data/labels/val.cache... 144 images, 0 backgrounds, 0 corrupt: 100%|██████████| 144/144 [00:00<?, ?itval: Scanning /app/data/labels/val.cache... 144 images, 0 backgrounds, 0 corrupt: 100%|██████████| 144/144 [00:00<?, ?it/s]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0%|          | 0/9 [00:00<?,                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  11%|█         | 1/9 [00:05<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  22%|██▏       | 2/9 [00:11<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  33%|███▎      | 3/9 [00:16<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  44%|████▍     | 4/9 [00:21<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  56%|█████▌    | 5/9 [00:25<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  67%|██████▋   | 6/9 [00:29<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  78%|███████▊  | 7/9 [00:34<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):  89%|████████▉ | 8/9 [00:38<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 9/9 [00:42<00                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 9/9 [00:42<00:00,  4.73s/it]
+                   all        144        318      0.328      0.224      0.173     0.0628
+            minor-dent        144         19      0.597     0.0526      0.082     0.0515
+         minor-scratch        144        239      0.403      0.205      0.196     0.0681
+       moderate-broken        144          3          0          0     0.0123    0.00739
+         moderate-dent        144         17      0.164     0.0387     0.0561      0.028
+      moderate-scratch        144         25      0.143       0.08     0.0746     0.0425
+         severe-broken        144         10      0.387        0.6      0.347      0.121
+           severe-dent        144          3      0.446      0.333      0.359     0.0812
+        severe-scratch        144          2      0.486      0.486      0.257      0.103
+Speed: 5.9ms preprocess, 261.1ms inference, 0.0ms loss, 1.0ms postprocess per image
