@@ -29,6 +29,7 @@ This project uses YOLOv8, a state-of-the-art object detection model, to identify
 ## Data Structure
 
 The expected data structure is as follows for yolov8 format
+Place and run cocotoyolov8.py in data_preprocessing directory to your dataset folder to convert from coco to YOLO if its not already. It will generate following directory strucutre.
 
 ```
 /path/to/your/data/
